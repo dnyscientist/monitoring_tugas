@@ -49,8 +49,8 @@ with st.form(key="assignment_form"):
     # Add new assignment to DataFrame
     if submit_button:
         if nama_pegawai and bidang_tugas:  # Ensure both fields are filled in
-            new_data = {"Nama Pegawai": nama_pegawai, "Bidang Tugas": bidang_tugas}
-            df = df.append(new_data, ignore_index=True)
+            new_data = pd.DataFrame({"Nama Pegawai": [nama_pegawai], "Bidang Tugas": [bidang_tugas]})
+            df = pd.concat([df, new_data], ignore_index=True)
             st.success(f"Tugas baru ditambahkan untuk {nama_pegawai} pada bidang {bidang_tugas}.")
         else:
             st.warning("Mohon isi nama pegawai dan bidang tugas.")
