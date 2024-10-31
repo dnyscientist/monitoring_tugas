@@ -24,23 +24,37 @@ st.dataframe(df)
 # Form for Adding New Assignments
 st.subheader("Tambah Data Pembagian Tugas")
 with st.form(key="assignment_form"):
-    nama_pegawai = st.selectbox("Nama Pegawai", ["Danny", "Fajar", "Teguh", "Sulung"])
-    bidang_tugas = st.selectbox(
-        "Bidang Tugas", 
+    nama_pegawai = st.text_input("Nama Pegawai Baru atau Pilih yang Sudah Ada", "")
+    existing_pegawai = st.selectbox("Atau Pilih Nama Pegawai yang Sudah Ada", ["", "Danny", "Fajar", "Teguh", "Sulung"])
+    
+    bidang_tugas = st.text_input("Nama Bidang Tugas Baru atau Pilih yang Sudah Ada", "")
+    existing_tugas = st.selectbox(
+        "Atau Pilih Nama Tugas yang Sudah Ada", 
         [
-            "CRM Nikel", "CRM PBB", "CRM Rokok", "CRM Otomotif", 
+            "", "CRM Nikel", "CRM PBB", "CRM Rokok", "CRM Otomotif", 
             "CRM Sawit", "CRM Batu Bara", "CRM Transfer Pricing", 
             "Administrasi", "Data Engineer", "Data Scientist", 
             "Data Visualization"
         ]
     )
+    
     submit_button = st.form_submit_button("Tambahkan Tugas")
 
+    # Determine which values to use for the new entry
+    if nama_pegawai == "" and existing_pegawai:
+        nama_pegawai = existing_pegawai  # Use selected existing name if no new name is provided
+    if bidang_tugas == "" and existing_tugas:
+        bidang_tugas = existing_tugas  # Use selected existing task if no new task is provided
+    
     # Add new assignment to DataFrame
     if submit_button:
-        new_data = {"Nama Pegawai": nama_pegawai, "Bidang Tugas": bidang_tugas}
-        df = df.append(new_data, ignore_index=True)
-        st.success(f"Tugas baru ditambahkan untuk {nama_pegawai} pada bidang {bidang_tugas}.")
+        if nama_pegawai and bidang_tugas:  # Ensure both fields are filled in
+            new_data = {"Nama Pegawai": nama_pegawai, "Bidang Tugas": bidang_tugas}
+            df = df.append(new_data, ignore_index=True)
+            st.success(f"Tugas baru ditambahkan untuk {nama_pegawai} pada bidang {bidang_tugas}.")
+        else:
+            st.warning("Mohon isi nama pegawai dan bidang tugas.")
+
 
 # CSV Upload for Bulk Assignment Updates
 st.subheader("Upload CSV untuk Pembagian Tugas")
