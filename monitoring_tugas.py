@@ -13,6 +13,23 @@ data = {
 # Load initial DataFrame
 df = pd.DataFrame(data)
 
+# Display the logo in the top-left corner
+st.markdown(
+    """
+    <style>
+    .logo {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+st.image("logo-kemenkeu.png", width=100)
+
 # Streamlit setup
 st.title("Dashboard Pembagian Tugas Pegawai")
 st.write("Dashboard ini menampilkan pembagian tugas pegawai dengan visualisasi data berwarna biru dan kuning sesuai dengan logo Direktorat Jenderal Pajak.")
@@ -24,10 +41,10 @@ st.dataframe(df)
 # Form for Adding New Assignments
 st.subheader("Tambah Data Pembagian Tugas")
 with st.form(key="assignment_form"):
-    nama_pegawai = st.text_input("Nama Pegawai Baru atau Pilih yang Sudah Ada", "")
+    nama_pegawai = st.text_input("Nama Pegawai Baru", "")
     existing_pegawai = st.selectbox("Atau Pilih Nama Pegawai yang Sudah Ada", ["", "Danny", "Fajar", "Teguh", "Sulung"])
     
-    bidang_tugas = st.text_input("Nama Bidang Tugas Baru atau Pilih yang Sudah Ada", "")
+    bidang_tugas = st.text_input("Nama Bidang Tugas Baru", "")
     existing_tugas = st.selectbox(
         "Atau Pilih Nama Tugas yang Sudah Ada", 
         [
