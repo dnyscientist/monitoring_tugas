@@ -2,14 +2,11 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Set initial data
+# Set initial data with matching lengths
 data = {
     "Nama Pegawai": ["Danny", "Fajar", "Teguh", "Sulung"],
     "Bidang Tugas": [
-        "CRM Nikel", "CRM PBB", "CRM Rokok", "CRM Otomotif", 
-        "CRM Sawit", "CRM Batu Bara", "CRM Transfer Pricing", 
-        "Administrasi", "Data Engineer", "Data Scientist", 
-        "Data Visualization"
+        "CRM Nikel", "CRM PBB", "CRM Rokok", "CRM Otomotif"
     ]
 }
 
